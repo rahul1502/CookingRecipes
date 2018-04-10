@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.recipeTitle.setText(recipe.getName());
         holder.recipeDescription.setText(recipe.getDescription());
         holder.recipeId.setText(recipe.getRecipeId());
+        holder.ratingBar.setRating(recipe.getRating());
 
         FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
         uid = mUser.getUid();
@@ -121,6 +123,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             }
         });
 
+        holder.viewRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),RecipeInfo.class);
+                intent.putExtra("recipe_id",holder.recipeId.getText().toString());
+                view.getContext().startActivity(intent);
+            }
+        });
+
+
     }
 
     @Override
@@ -131,7 +143,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     class RecipeViewHolder extends RecyclerView.ViewHolder{
 
         TextView recipeTitle,recipeDescription,recipeId;
-        Button editRecipe,deleteRecipe,link;
+        Button editRecipe,deleteRecipe,link,viewRecipe;
+        RatingBar ratingBar;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
@@ -142,6 +155,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             editRecipe = itemView.findViewById(R.id.editRecipe);
             deleteRecipe = itemView.findViewById(R.id.deleteRecipe);
             link = itemView.findViewById(R.id.link);
+            viewRecipe = itemView.findViewById(R.id.viewRecipe);
+            ratingBar = itemView.findViewById(R.id.ratingBar);
+
+            ratingBar.setIsIndicator(true); // https://stackoverflow.com/questions/26441098/rating-bar-view-only-on-android
+
         }
     }
 

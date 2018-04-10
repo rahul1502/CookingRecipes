@@ -44,6 +44,7 @@ public class Dashboard extends AppCompatActivity {
     private String gname;
     private String description;
     private String recipeId;
+    private Float rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +80,9 @@ public class Dashboard extends AppCompatActivity {
 
                     gname = ds.child("recipe_name").getValue(String.class);
                     description = ds.child("recipe_description").getValue(String.class);
+                    rating = ds.child("rating").getValue(Float.class);
                     recipeId = ds.getKey();
-                    recipeList.add(new Recipe(gname,description,recipeId));
+                    recipeList.add(new Recipe(gname,description,recipeId,rating));
                 }
                 Collections.reverse(recipeList); //https://www.tutorialspoint.com/java/util/collections_reverse.htm
                 recipeAdapter.notifyDataSetChanged();
@@ -91,6 +93,8 @@ public class Dashboard extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     public void addRecipe(View view) {
@@ -114,6 +118,8 @@ public class Dashboard extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 
 }

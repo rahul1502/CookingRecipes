@@ -10,7 +10,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="250dp"
         android:layout_margin="8dp">
 
         <RelativeLayout
@@ -29,40 +29,64 @@
                 android:textSize="22dp"
                 android:textStyle="bold" />
 
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/recipeDescription"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="-48dp"
+                android:scaleX="0.7"
+                android:scaleY="0.7" />
+
             <TextView
                 android:id="@+id/recipeDescription"
                 android:layout_width="match_parent"
-                android:layout_height="66dp"
+                android:layout_height="99dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/recipeTitle"
                 android:layout_marginBottom="58dp"
+                android:layout_marginTop="48dp"
                 android:maxLines="3"
                 android:padding="8dp"
                 android:textColor="#666"
                 android:textSize="14dp" />
 
-            <Button
-                android:id="@+id/editRecipe"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_alignParentStart="true"
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/recipeDescription"
-                android:layout_marginStart="29dp"
                 android:layout_marginTop="-48dp"
-                android:background="#FFFF4081"
-                android:text="Edit" />
+                android:orientation="horizontal"
+                android:weightSum="3"
+                >
+                <Button
+                    android:id="@+id/deleteRecipe"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="#FFFF4081"
+                    android:text="Delete" />
 
-            <Button
-                android:id="@+id/deleteRecipe"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/recipeDescription"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="-48dp"
-                android:background="#FFFF4081"
-                android:text="Delete" />
+                <Button
+                    android:id="@+id/viewRecipe"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="#FFFF4081"
+                    android:text="View" />
+
+                <Button
+                    android:id="@+id/editRecipe"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="#FFFF4081"
+                    android:text="Edit" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/link"
@@ -70,6 +94,7 @@
                 android:layout_height="45dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/ic_link" />
 
@@ -82,6 +107,7 @@
                 android:layout_marginEnd="113dp"
                 android:layout_marginTop="17dp"
                 android:visibility="invisible" />
+
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

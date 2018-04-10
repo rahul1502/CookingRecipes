@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +32,8 @@ public class EditRecipe extends AppCompatActivity {
     private Button clear_url;
     private Button updateRecipe;
 
+    private RatingBar ratingBar;
+
     private String recipe_id;
 
     private DatabaseReference mDatabaseReference;
@@ -54,6 +57,7 @@ public class EditRecipe extends AppCompatActivity {
         clear_instructions = (Button)findViewById(R.id.clear_instructions);
         clear_url = (Button)findViewById(R.id.clear_url);
         updateRecipe = (Button)findViewById(R.id.updateRecipe);
+        ratingBar = (RatingBar)findViewById(R.id.ratingBar);
 
         recipe_name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +152,7 @@ public class EditRecipe extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 recipe_name.setText(dataSnapshot.child("recipe_name").getValue().toString());
+                ratingBar.setRating(dataSnapshot.child("rating").getValue(Float.class));
                 recipe_description.setText(dataSnapshot.child("recipe_description").getValue().toString());
                 recipe_ingredients.setText(dataSnapshot.child("recipe_ingredients").getValue().toString());
                 recipe_instructions.setText(dataSnapshot.child("recipe_instructions").getValue().toString());
@@ -165,6 +170,7 @@ public class EditRecipe extends AppCompatActivity {
             public void onClick(View view) {
                 mDatabaseReference = FirebaseDatabase.getInstance().getReference().child(uid).child(recipe_id);
                 mDatabaseReference.child("recipe_name").setValue(recipe_name.getText().toString());
+                mDatabaseReference.child("rating").setValue(ratingBar.getRating());
                 mDatabaseReference.child("recipe_description").setValue(recipe_description.getText().toString());
                 mDatabaseReference.child("recipe_ingredients").setValue(recipe_ingredients.getText().toString());
                 mDatabaseReference.child("recipe_instructions").setValue(recipe_instructions.getText().toString());

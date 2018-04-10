@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,7 @@ public class AddRecipe extends AppCompatActivity {
     private Button clear_instructions;
     private Button clear_url;
     private Button addRecipe;
+    private RatingBar ratingBar;
 
     // get uid
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -56,6 +58,7 @@ public class AddRecipe extends AppCompatActivity {
         clear_instructions = (Button)findViewById(R.id.clear_instructions);
         clear_url = (Button)findViewById(R.id.clear_url);
         addRecipe = (Button)findViewById(R.id.addRecipe);
+        ratingBar = (RatingBar)findViewById(R.id.ratingBar);
 
         recipe_name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +151,7 @@ public class AddRecipe extends AppCompatActivity {
                 mDatabaseReference = FirebaseDatabase.getInstance().getReference().child(mUser.getUid()).push();
                 recipeId = mDatabaseReference.getKey();
                 mDatabaseReference.child("recipe_name").setValue(recipe_name.getText().toString());
+                mDatabaseReference.child("rating").setValue(ratingBar.getRating());
                 mDatabaseReference.child("recipe_description").setValue(recipe_description.getText().toString());
                 mDatabaseReference.child("recipe_ingredients").setValue(recipe_ingredients.getText().toString());
                 mDatabaseReference.child("recipe_instructions").setValue(recipe_instructions.getText().toString());
