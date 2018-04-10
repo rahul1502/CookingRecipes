@@ -4,13 +4,13 @@ public class Recipe {
 
     String name;
     String description;
-    String url;
+    String recipeId;
 
 
-    public Recipe(String name, String description, String url) {
+    public Recipe(String name, String description, String recipeId) {
         this.name = name;
         this.description = description;
-        this.url = url;
+        this.recipeId = recipeId;
     }
 
     public String getName() {
@@ -21,7 +21,7 @@ public class Recipe {
         return description;
     }
 
-    public String getUrl() {
-        return url;
+    public String getRecipeId() {
+        return recipeId;
     }
 }

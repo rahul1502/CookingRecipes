@@ -61,7 +61,7 @@ public class AddRecipe extends AppCompatActivity {
             mDatabaseReference.child("recipe_description").setValue(recipe_description.getText().toString());
             mDatabaseReference.child("recipe_ingredients").setValue(recipe_ingredients.getText().toString());
             mDatabaseReference.child("recipe_instructions").setValue(recipe_instructions.getText().toString());
-            if(recipe_url.getText().equals("                                                                          ")){
+            if(recipe_url.getText().equals("")){
                 mDatabaseReference.child("recipe_url").setValue("None");
             }
             else{

@@ -6,19 +6,21 @@
     android:orientation="vertical">
 
     <!--http://stacktips.com/tutorials/android/android-cardview-example -->
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="170dp"
         android:layout_margin="8dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#DCE775">
 
             <TextView
                 android:id="@+id/recipeTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="168dp"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
                 android:padding="8dp"
@@ -30,11 +32,11 @@
             <TextView
                 android:id="@+id/recipeDescription"
                 android:layout_width="match_parent"
-                android:layout_height="121dp"
-                android:layout_below="@+id/recipeTitle"
+                android:layout_height="66dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="49dp"
+                android:layout_below="@+id/recipeTitle"
+                android:layout_marginBottom="58dp"
                 android:maxLines="3"
                 android:padding="8dp"
                 android:textColor="#666"
@@ -42,22 +44,44 @@
 
             <Button
                 android:id="@+id/editRecipe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/recipeTitle"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="46dp"
-                android:layout_toLeftOf="@+id/deleteRecipe"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/recipeDescription"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="-48dp"
+                android:background="#FFFF4081"
                 android:text="Edit" />
 
             <Button
                 android:id="@+id/deleteRecipe"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/recipeDescription"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="-48dp"
+                android:background="#FFFF4081"
+                android:text="Delete" />
+
+            <Button
+                android:id="@+id/link"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/ic_link" />
+
+            <TextView
+                android:id="@+id/recipeId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="46dp"
-                android:text="Delete" />
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="113dp"
+                android:layout_marginTop="17dp"
+                android:visibility="invisible" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

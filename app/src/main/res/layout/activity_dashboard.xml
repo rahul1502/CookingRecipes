@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Dashboard">
+    tools:context=".Dashboard"
+    android:background="#00E5FF">
 
     <TextView
         android:id="@+id/heading"
@@ -12,10 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:text="TextView"
         android:textColor="#000"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_recipe"
@@ -28,15 +30,16 @@
         android:clickable="true"
         android:onClick="addRecipe"
         android:src="@drawable/ic_plus"
+        app:backgroundTint="#00BCD4"
         app:layout_anchorGravity="bottom|right|end" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recipe_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="463dp"
         android:layout_below="@+id/heading"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_marginTop="11dp"></android.support.v7.widget.RecyclerView>
 
 
 </RelativeLayout>
