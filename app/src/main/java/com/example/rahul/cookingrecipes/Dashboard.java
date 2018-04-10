@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -77,13 +78,12 @@ public class Dashboard extends AppCompatActivity {
                 for(DataSnapshot ds:dataSnapshot.getChildren()){
 
                     gname = ds.child("recipe_name").getValue(String.class);
-                    //gname = map.get("recipe_name").toString();
                     description = ds.child("recipe_description").getValue(String.class);
-                    //description = map.get("recipe_description").toString();
                     recipeId = ds.getKey();
                     recipeList.add(new Recipe(gname,description,recipeId));
-                    recipeAdapter.notifyDataSetChanged();
                 }
+                Collections.reverse(recipeList); //https://www.tutorialspoint.com/java/util/collections_reverse.htm
+                recipeAdapter.notifyDataSetChanged();
             }
 
             @Override

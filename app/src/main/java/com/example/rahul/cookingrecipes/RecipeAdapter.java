@@ -5,7 +5,9 @@ package com.example.rahul.cookingrecipes;
 // https://www.youtube.com/watch?v=a4o9zFfyIM4
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -84,11 +86,38 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         holder.deleteRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
+            public void onClick(final View view) {
+
+                //https://stackoverflow.com/questions/2115758/how-do-i-display-an-alert-dialog-on-android
+                AlertDialog.Builder builder
+                        = new AlertDialog.Builder(view.getContext(),android.R.style.Theme_Material_Light_Dialog_Alert);
+                builder.setTitle("Delete Recipe")
+                        .setMessage("Are you sure you want to Delete this Recipe?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mDatabaseReference.child(holder.recipeId.getText().toString()).removeValue();
+                                recipeList.remove(position);
+                                notifyItemRemoved(position);
+                                Toast.makeText(view.getContext(), "Recipe Deleted",Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(R.drawable.ic_alert)
+                        .show();
+            }
+        });
+        holder.editRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
-                mDatabaseReference.child(holder.recipeId.getText().toString()).removeValue();
-                recipeList.remove(position);
-                notifyItemRemoved(position);
-                Toast.makeText(view.getContext(), "Recipe Deleted",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(),EditRecipe.class);
+                intent.putExtra("recipe_id",holder.recipeId.getText().toString());
+                view.getContext().startActivity(intent);
             }
         });
 

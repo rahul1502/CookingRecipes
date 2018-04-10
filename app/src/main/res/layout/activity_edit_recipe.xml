@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddRecipe">
+    tools:context=".EditRecipe">
 
     <TextView
         android:id="@+id/textView1"
@@ -138,14 +138,11 @@
         android:visibility="invisible"/>
 
     <Button
-        android:id="@+id/addRecipe"
+        android:id="@+id/updateRecipe"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="#FFFF4081"
-        android:text="Save Recipe" />
-
-
-
+        android:text="Update Recipe" />
 </RelativeLayout>
