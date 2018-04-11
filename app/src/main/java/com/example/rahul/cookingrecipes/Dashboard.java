@@ -6,11 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,11 +36,13 @@ import static android.widget.Toast.LENGTH_LONG;
 public class Dashboard extends AppCompatActivity {
 
     private FloatingActionButton add_recipe;
-    private TextView heading;
+    //private TextView heading;
     private RecyclerView recyclerView;
     private RecipeAdapter recipeAdapter;
 
     List<Recipe> recipeList;
+
+    private EditText searchBar;
 
     private DatabaseReference mDatabaseReference;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -46,22 +52,45 @@ public class Dashboard extends AppCompatActivity {
     private String recipeId;
     private Float rating;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
         add_recipe = (FloatingActionButton) findViewById(R.id.add_recipe);
-        heading = (TextView)findViewById(R.id.heading);
+        //heading = (TextView)findViewById(R.id.heading);
         recyclerView = (RecyclerView)findViewById(R.id.recipe_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        searchBar = (EditText) findViewById(R.id.searchBar);
 
         FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = mUser.getUid();
         String name = mUser.getDisplayName(); // https://stackoverflow.com/questions/42056333/getting-user-name-lastname-and-id-in-firebase
         String[] fullName = name.split("\\s+");
-        heading.setText(fullName[0] + "'s Recipes");
+
+        setTitle(fullName[0] + "'s Recipes");
+
+        // search feature
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // https://www.youtube.com/watch?v=OWwOSLfWboY
+                filter(editable.toString());
+            }
+        });
 
 
         // add recipes to the list
@@ -82,7 +111,11 @@ public class Dashboard extends AppCompatActivity {
                     description = ds.child("recipe_description").getValue(String.class);
                     rating = ds.child("rating").getValue(Float.class);
                     recipeId = ds.getKey();
-                    recipeList.add(new Recipe(gname,description,recipeId,rating));
+                    try{
+                        recipeList.add(new Recipe(gname,description,recipeId,rating));
+                    }catch (NullPointerException e){
+                   }
+
                 }
                 Collections.reverse(recipeList); //https://www.tutorialspoint.com/java/util/collections_reverse.htm
                 recipeAdapter.notifyDataSetChanged();
@@ -96,6 +129,17 @@ public class Dashboard extends AppCompatActivity {
 
 
     }
+
+    private void filter(String text){
+        ArrayList<Recipe> filteredList = new ArrayList<>();
+        for(Recipe item : recipeList){
+            if(item.getName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+            recipeAdapter.filterList(filteredList);
+        }
+    }
+
 
     public void addRecipe(View view) {
         startActivity(new Intent(Dashboard.this, AddRecipe.class));
@@ -111,9 +155,6 @@ public class Dashboard extends AppCompatActivity {
         if(item.getItemId() == R.id.action_signout){
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(Dashboard.this, MainActivity.class));
-        }
-        else if(item.getItemId() == R.id.search_recipe){
-            // search for recipe
         }
 
         return super.onOptionsItemSelected(item);

@@ -17,7 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Dashboard" />
+        <activity android:name=".Dashboard"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".AddRecipe" />
         <activity android:name=".EditRecipe" />
         <activity android:name=".RecipeInfo"></activity>

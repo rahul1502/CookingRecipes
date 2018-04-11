@@ -1,11 +1,16 @@
 package com.example.rahul.cookingrecipes;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
@@ -40,7 +45,8 @@ public class AddRecipe extends AppCompatActivity {
     // Database
     private DatabaseReference mDatabaseReference;
 
-    String recipeId;
+    private String recipeId;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,14 +161,16 @@ public class AddRecipe extends AppCompatActivity {
                 mDatabaseReference.child("recipe_description").setValue(recipe_description.getText().toString());
                 mDatabaseReference.child("recipe_ingredients").setValue(recipe_ingredients.getText().toString());
                 mDatabaseReference.child("recipe_instructions").setValue(recipe_instructions.getText().toString());
-                if(recipe_url.getText().equals("")){
-                    mDatabaseReference.child("recipe_url").setValue("None");
+                url = recipe_url.getText().toString();
+                if(url.contains("www.")){
+                    mDatabaseReference.child("recipe_url").setValue(recipe_url.getText().toString());
                 }
                 else{
-                    mDatabaseReference.child("recipe_url").setValue(recipe_url.getText().toString());
+                    mDatabaseReference.child("recipe_url").setValue("None");
                 }
                 Toast.makeText(AddRecipe.this, "Recipe Saved",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(AddRecipe.this, Dashboard.class));
+
             }
         });
     }

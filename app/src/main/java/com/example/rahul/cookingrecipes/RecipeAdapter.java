@@ -28,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
@@ -110,7 +111,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                                 // do nothing
                             }
                         })
-                        .setIcon(R.drawable.ic_alert)
+                        .setIcon(R.drawable.ic_delete)
                         .show();
             }
         });
@@ -161,6 +162,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             ratingBar.setIsIndicator(true); // https://stackoverflow.com/questions/26441098/rating-bar-view-only-on-android
 
         }
+    }
+
+    public void filterList(ArrayList<Recipe> filteredList){
+        recipeList = filteredList;
+        notifyDataSetChanged();
     }
 
 }

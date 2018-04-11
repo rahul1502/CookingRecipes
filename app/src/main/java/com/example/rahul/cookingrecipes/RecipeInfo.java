@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -74,7 +75,13 @@ public class RecipeInfo extends AppCompatActivity {
         link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                if(!url.contains("www.") && (!url.contains("http://") && (!url.contains("https://")))){
+                    Toast.makeText(RecipeInfo.this, "Not a valid URL",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                }
+
             }
         });
 
